@@ -1,0 +1,50 @@
+general {
+	colors = true
+  	color_good = "#a3be8c"
+  	color_bad  = "#bf616a"
+  	color_degraded = "#ebcb8b"
+  	interval = 1
+	separator = "|"
+}
+
+order += "disk /"
+order += "wireless wlan0"
+order += "battery all"
+order += "memory"
+order += "tztime local"
+
+wireless wlan0 {
+        format_up = "W: (%quality at %essid, %bitrate) %ip"
+        format_down = "W: down"
+}
+
+battery all {
+  	path=/sys/class/power_supply/%d/uevent
+  	format = "BAT: %percentage %status"
+	status_chr = "⚡ CHR"
+        status_bat = "🔋 BAT"
+        status_unk = "? UNK"
+        status_full = "☻ FULL"
+  	last_full_capacity = true
+  	threshold_type=percentage
+  	low_threshold=10
+}
+
+tztime local {
+        format = "%d/%m/%Y %H:%M"
+}
+
+memory {
+        format = "%used"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+
+}
+
+disk "/" {
+        format = "%free"
+}
+
+read_file uptime {
+        path = "/proc/uptime"
+}
