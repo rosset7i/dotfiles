@@ -1,6 +1,13 @@
 #
 # ~/.bashrc
 #
+cd() {
+  builtin cd "$@" && pwd > ~/.last_dir
+}
+
+
+PROMPT_COMMAND='pwd > ~/.last_dir'
+cd "$(cat ~/.last_dir)"
 
 eval "$(oh-my-posh init bash --config ~/.config/catppuccin_frappe.omp.json)"
 
