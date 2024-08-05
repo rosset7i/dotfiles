@@ -44,7 +44,6 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
@@ -194,6 +193,8 @@ bar {
 
 exec_always feh --bg-scale /home/rossetti/Pictures/wallpaper.jpg
 exec xcompmgr
+exec Snipaste
+exec copyq
 
 assign [class="firefox"] $ws1
 assign [class="st"] $ws2
