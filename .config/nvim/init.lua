@@ -1,8 +1,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.have_nerd_font = false
-
 vim.opt.number = true
+vim.opt.relativenumber = true
+
 vim.opt.mouse = "a"
 
 vim.opt.showmode = false
@@ -70,6 +71,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"tpope/vim-sleuth",
 	{
+		"m4xshen/autoclose.nvim",
+		config = function()
+			require("autoclose").setup()
+		end,
+	},
+	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
@@ -81,7 +88,28 @@ require("lazy").setup({
 			},
 		},
 	},
-
+	{
+		"ThePrimeagen/harpoon",
+		config = function()
+			local ui = require("harpoon.ui")
+			local mark = require("harpoon.mark")
+			vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+			vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "[A]dd file to Harpoon" })
+			vim.keymap.set("n", "<leader>q", mark.rm_file, { desc = "[R]emove file of Harpoon" })
+			vim.keymap.set("n", "<C-a>", function()
+				ui.nav_file(1)
+			end)
+			vim.keymap.set("n", "<C-s>", function()
+				ui.nav_file(2)
+			end)
+			vim.keymap.set("n", "<C-d>", function()
+				ui.nav_file(3)
+			end)
+			vim.keymap.set("n", "<C-f>", function()
+				ui.nav_file(4)
+			end)
+		end,
+	},
 	{
 		"folke/which-key.nvim",
 		event = "VimEnter",
