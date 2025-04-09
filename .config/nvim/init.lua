@@ -3,7 +3,6 @@ vim.g.maplocalleader = " "
 vim.g.have_nerd_font = false
 vim.opt.number = true
 vim.opt.relativenumber = true
-
 vim.opt.mouse = "a"
 
 vim.opt.showmode = false
@@ -90,25 +89,24 @@ require("lazy").setup({
 	},
 	{
 		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
-			local ui = require("harpoon.ui")
-			local mark = require("harpoon.mark")
-			vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
-			vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "[A]dd file to Harpoon" })
-			vim.keymap.set("n", "<leader>q", mark.rm_file, { desc = "[R]emove file of Harpoon" })
-			vim.keymap.set("n", "<C-a>", function()
-				ui.nav_file(1)
-			end)
-			vim.keymap.set("n", "<C-s>", function()
-				ui.nav_file(2)
-			end)
-			vim.keymap.set("n", "<C-d>", function()
-				ui.nav_file(3)
-			end)
-			vim.keymap.set("n", "<C-f>", function()
-				ui.nav_file(4)
-			end)
-		end,
+			local harpoon = require("harpoon")
+
+			harpoon:setup()
+
+			vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+			vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+			vim.keymap.set("n", "<C-a>", function() harpoon:list():select(1) end)
+			vim.keymap.set("n", "<C-s>", function() harpoon:list():select(2) end)
+			vim.keymap.set("n", "<C-d>", function() harpoon:list():select(3) end)
+			vim.keymap.set("n", "<C-f>", function() harpoon:list():select(4) end)
+
+			vim.keymap.set("n", "<C-p>", function() harpoon:list():prev() end)
+			vim.keymap.set("n", "<C-n>", function() harpoon:list():next() end)
+		end
 	},
 	{
 		"folke/which-key.nvim",
